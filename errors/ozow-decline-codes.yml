@@ -1,0 +1,41 @@
+generated: '2026-07-17'
+method: derived
+source: >-
+  openapi/ozow-openapi.yml Transaction.status enum + documented Ozow instant-EFT
+  transaction outcomes. Ozow is an instant-EFT / Pay-by-Bank gateway, not a card
+  acquirer, so it has no ISO 8583 card decline codes; the equivalent "decline"
+  surface is the transaction Status returned by GetTransaction and posted to the
+  merchant NotifyUrl.
+envelope_field: status
+status_message_field: statusMessage
+decline_codes:
+- code: Complete
+  meaning: Payment completed successfully; funds confirmed.
+  action: Fulfil the order. Reconcile against TransactionReference.
+  terminal: true
+- code: Cancelled
+  meaning: Customer cancelled the payment on the Ozow bank-selection/secure flow.
+  action: Offer retry; do not fulfil.
+  terminal: true
+- code: Error
+  meaning: Payment failed due to an error during bank processing.
+  action: Offer retry; inspect statusMessage.
+  terminal: true
+- code: Abandoned
+  meaning: Customer left the flow without completing (no cancel, no success).
+  action: Treat as unpaid; may be recoverable via retry.
+  terminal: true
+- code: PendingInvestigation
+  meaning: >-
+    Payment is under manual/automated investigation (e.g. amount mismatch,
+    delayed bank confirmation); outcome not yet final.
+  action: Do not fulfil yet. Poll GetTransaction or await NotifyUrl update.
+  terminal: false
+- code: Pending
+  meaning: Payment initiated but not yet confirmed by the bank.
+  action: Await NotifyUrl / poll GetTransaction; do not fulfil.
+  terminal: false
+notes: >-
+  Always treat the server-to-server NotifyUrl status (verified via HashCheck) as
+  authoritative over the browser SuccessUrl/ErrorUrl redirect, which the customer
+  can manipulate. Verify Amount and status before fulfilment.

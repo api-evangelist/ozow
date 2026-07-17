@@ -1,0 +1,54 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  openapi/ozow-openapi.yml (derived) + hub.ozow.com developer hub and
+  ozow.com/integrations (searched). Cross-links authentication/, errors/,
+  rate-limits/, asyncapi/.
+authentication:
+  style: apiKey-header-plus-hash
+  detail: >-
+    ApiKey header on payment/transaction calls; SHA512 HashCheck field computed
+    over the ordered field set + merchant PrivateKey, lower-cased. Refunds and
+    Payouts use a reusable bearer token from the Ozow token service plus their
+    own HashCheck. See authentication/ozow-authentication.yml.
+integrity:
+  scheme: SHA512 HashCheck
+  request: >-
+    Concatenate request fields in documented order (SiteCode, CountryCode,
+    CurrencyCode, Amount, TransactionReference, BankReference, CancelUrl,
+    ErrorUrl, SuccessUrl, NotifyUrl, IsTest), append PrivateKey, lower-case,
+    SHA512 hex digest.
+  response: >-
+    Verify NotifyUrl callbacks by concatenating the response fields (excluding
+    Hash), appending PrivateKey, lower-casing, and comparing the SHA512 digest.
+idempotency:
+  supported: false
+  note: >-
+    No documented Idempotency-Key header. TransactionReference is a unique
+    merchant reference used to match/reconcile a transaction, not a documented
+    idempotent-replay guarantee. Merchants should enforce their own dedup on
+    TransactionReference.
+pagination:
+  supported: false
+  note: >-
+    Read endpoints return a JSON array of matching transactions/banks with no
+    cursor/offset/limit params.
+versioning:
+  style: unversioned
+  note: Stable v1 surface; no path version or API-Version header. See lifecycle/ozow-lifecycle.yml.
+error_envelope:
+  media_type: application/json
+  shape: '{ errorMessage, errorCode }'
+  note: Proprietary, not RFC 9457. See errors/ozow-problem-types.yml.
+rate_limit_signaling:
+  note: >-
+    No documented rate-limit response headers. See rate-limits/ozow-rate-limits.yml.
+request_tracing:
+  note: >-
+    No documented request-id/correlation header; correlate via
+    TransactionReference and the Ozow transactionId (GUID).
+callbacks:
+  notify_url: >-
+    Server-to-server POST to the merchant NotifyUrl on payment/refund/payout
+    completion; treat as authoritative over the browser redirect. See
+    asyncapi/ozow-webhooks.yml.

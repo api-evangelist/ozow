@@ -1,0 +1,38 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/ozow-openapi.yml
+entities:
+- name: PaymentRequest
+  key: TransactionReference (merchant) / paymentRequestId (Ozow GUID)
+  fields: [SiteCode, CountryCode, CurrencyCode, Amount, TransactionReference, BankReference, NotifyUrl, IsTest, HashCheck]
+- name: Transaction
+  key: transactionId (Ozow GUID)
+  fields: [transactionId, siteCode, amount, transactionReference, bankReference, status, statusMessage, isTest, createdDate, paymentDate]
+- name: Bank
+  key: id
+  fields: [id, name, abbreviation, countryCode]
+- name: Refund
+  key: refundId
+  fields: [SiteCode, TransactionId, Amount, RefundReference, status]
+relationships:
+- from: Transaction
+  to: PaymentRequest
+  type: belongs_to
+  via: transactionReference
+  note: A Transaction is the outcome of a PaymentRequest, matched on the merchant reference.
+- from: Refund
+  to: Transaction
+  type: belongs_to
+  via: TransactionId
+  note: A Refund targets a previously completed Transaction by its Ozow transaction id.
+- from: PaymentRequest
+  to: Bank
+  type: has_one
+  via: bank-selection
+  note: >-
+    The customer selects one Bank during the secure flow; GetBanks enumerates
+    the supported set for the site/country.
+id_conventions:
+  transactionId: Ozow-generated GUID
+  paymentRequestId: Ozow-generated GUID
+  transactionReference: merchant-supplied unique string

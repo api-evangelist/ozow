@@ -1,0 +1,28 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  hub.ozow.com developer hub, ozow.com, and live probes 2026-07-17.
+versioning:
+  scheme: none-documented
+  current: '1.0'
+  note: >-
+    Ozow does not publish a formal API version in the URL path or an API-Version
+    header; the HTTP form-post / direct-API surface is treated as a stable v1.
+    The provider was formerly branded i-Pay (api.i-pay.co.za), now Ozow
+    (api.ozow.com).
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No published deprecation policy or RFC 8594 Sunset/Deprecation header support found.
+sla:
+  url: null
+  uptime_target: null
+  note: No public SLA / uptime commitment published for the merchant API.
+status_page:
+  url: https://ozow.statuspage.io
+  active: false
+  note: >-
+    An Atlassian Statuspage exists at ozow.statuspage.io but is currently
+    INACTIVE ("Ozow Status - Page Inactive", team-only). Because it is not a
+    live public status page, no StatusPage rating pointer is emitted.
+deprecated_operations: []

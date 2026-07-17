@@ -1,0 +1,32 @@
+generated: '2026-07-17'
+method: derived
+source: openapi/ozow-openapi.yml
+format: proprietary
+envelope:
+  media_type: application/json
+  fields:
+    errorMessage: Human-readable error description.
+    errorCode: Ozow error code string (where returned).
+note: >-
+  Ozow does not use RFC 9457 application/problem+json. Write endpoints
+  (postPaymentRequest, postRefundRequest) return a proprietary
+  {errorMessage, errorCode} body on failure. The most common failure is a hash
+  mismatch: the SHA512 HashCheck the merchant computed does not match Ozow's
+  recomputation over the field set + PrivateKey. Read endpoints
+  (getTransaction, getBanks) return an empty array rather than a 404 when no
+  match is found. Transaction outcome (not HTTP error) is carried in the
+  Transaction.status field — see errors/ozow-decline-codes.yml.
+problems:
+- status: 400
+  title: Invalid request or hash mismatch
+  detail: >-
+    The request failed validation or the HashCheck did not match Ozow's
+    server-side SHA512 recomputation. Verify field order, PrivateKey, and the
+    lower-cased concatenation.
+  source_operation: openapi/ozow-openapi.yml#postPaymentRequest
+- status: 400
+  title: Invalid refund request or hash mismatch
+  detail: >-
+    Refund request failed validation, the bearer token was missing/expired, or
+    the HashCheck did not match.
+  source_operation: openapi/ozow-openapi.yml#postRefundRequest

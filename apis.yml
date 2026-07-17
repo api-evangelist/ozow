@@ -118,6 +118,50 @@ common:
   url: finops/ozow-finops.yml
 - url: https://ozow.com/blog
   type: Blog
+- type: DeveloperPortal
+  url: https://hub.ozow.com/docs
+- type: GettingStarted
+  url: https://hub.ozow.com/docs
+- type: Support
+  url: https://ozow.com/contact
+- type: Pricing
+  url: https://ozow.com/pricing
+- type: SignUp
+  url: https://dash.ozow.com
+- type: TermsOfService
+  url: https://ozow.com/terms-and-conditions
+- type: PrivacyPolicy
+  url: https://ozow.com/privacy-policy
+- type: Packages
+  url: packages/ozow-packages.yml
+- type: MCPServer
+  url: mcp/ozow-mcp.yml
+- type: LLMsTxt
+  url: llms/ozow-llms.txt
+- type: Overlay
+  url: overlays/ozow-openapi-overlay.yaml
+- type: Conformance
+  url: conformance/ozow-conformance.yml
+- type: Compliance
+  url: security/ozow-trust-center.yml
+- type: ErrorCatalog
+  url: errors/ozow-problem-types.yml
+- type: DeclineCodes
+  url: errors/ozow-decline-codes.yml
+- type: Lifecycle
+  url: lifecycle/ozow-lifecycle.yml
+- type: Sandbox
+  url: sandbox/ozow-sandbox.yml
+- type: Conventions
+  url: conventions/ozow-conventions.yml
+- type: Components
+  url: components/ozow-components.yml
+- type: DataModel
+  url: data-model/ozow-data-model.yml
+- type: Webhooks
+  url: asyncapi/ozow-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

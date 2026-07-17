@@ -1,0 +1,30 @@
+generated: '2026-07-17'
+method: searched
+source: ozow.com/integrations, hub.ozow.com developer hub.
+description: >-
+  Ozow ships client-side embeddable payment surfaces in addition to the
+  server-side API. These are distinct from any SDK (Ozow ships no official SDK).
+families:
+- name: JS Injection
+  kind: embedded-checkout
+  loader: Ozow JavaScript snippet embedded on the merchant page
+  variants:
+  - name: iFrame
+    note: Displays the Ozow payment flow inline via iFrame (limited device compatibility).
+  - name: Modal
+    note: Displays the Ozow payment flow in an overlay modal (universal device compatibility).
+- name: Payment Request Link / Button
+  kind: hosted-payment-link
+  variants:
+  - name: Button
+    note: Rendered "Pay with Ozow" button that opens the hosted secure flow.
+  - name: Link
+    note: Shareable payment link (also deliverable by SMS/email).
+  - name: QR code
+    note: QR code that opens the hosted payment flow on a mobile device.
+- name: E-commerce plugins
+  kind: platform-connector
+  note: >-
+    Pre-built connectors for 14 platforms (Shopify, WooCommerce, Magento,
+    BigCommerce, PrestaShop, OpenCart, CS-Cart, WP eCommerce, Xero, NopCommerce,
+    VirtueMart, WHMCS, J2 Store, Drupal).

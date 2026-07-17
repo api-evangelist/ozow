@@ -1,0 +1,37 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  npm, GitHub, and Packagist searches for Ozow client libraries. Ozow publishes
+  no first-party SDK; it documents HTTP form-post / JS-injection / direct-API
+  integration and 14 e-commerce plugins (Shopify, WooCommerce, Magento,
+  BigCommerce, PrestaShop, OpenCart, CS-Cart, WP eCommerce, Xero, NopCommerce,
+  VirtueMart, WHMCS, J2 Store, Drupal) via https://ozow.com/integrations. All
+  code libraries below are community-maintained; none is official (official:
+  false everywhere).
+packages:
+- language: javascript
+  registry: npm
+  name: react-native-ozow
+  url: https://www.npmjs.com/package/react-native-ozow
+  install: npm install react-native-ozow
+  official: false
+  note: >-
+    Community React Native wrapper for the Ozow in-app / link payment flow
+    (author Axole Maranjana, github.com/Axolem/react-native-ozow). The README
+    states "This is not an official Ozow library."
+- language: php
+  registry: github
+  name: wdtheprovider/ozpay
+  url: https://github.com/wdtheprovider/ozpay
+  install: git clone https://github.com/wdtheprovider/ozpay
+  official: false
+  note: >-
+    Community PHP/MySQL Ozow payment script (custom HashCheck + payment.php).
+    Not published to Packagist; source-only.
+- language: javascript
+  registry: github
+  name: Arcktosh/ozow-next-integration
+  url: https://github.com/Arcktosh/ozow-next-integration
+  install: git clone https://github.com/Arcktosh/ozow-next-integration
+  official: false
+  note: Community Next.js Ozow API integration example. Source-only.

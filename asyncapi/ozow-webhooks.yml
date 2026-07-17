@@ -1,0 +1,37 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  hub.ozow.com developer hub (payment notification + payout webhook pages),
+  openapi/ozow-openapi.yml. Ozow publishes no AsyncAPI document; this captures
+  the webhook/notification surface as a catalog (type: Webhooks).
+spec_type: Webhooks
+transport: http-callback
+delivery:
+  method: POST
+  target: merchant-supplied NotifyUrl (per request)
+  verification: >-
+    SHA512 HashCheck over the response fields (excluding Hash) + merchant
+    PrivateKey, lower-cased. Treat the server-to-server notification as
+    authoritative over the browser SuccessUrl/ErrorUrl redirect.
+  reliability: >-
+    Merchants should respond 200 promptly and reconcile idempotently on
+    TransactionReference; poll GetTransaction as a fallback if a notification is
+    missed.
+events:
+- name: payment.notification
+  trigger: A payment request reaches a terminal or updated status.
+  status_field: Status
+  statuses: [Complete, Cancelled, Error, Abandoned, PendingInvestigation]
+  payload_fields: [SiteCode, TransactionId, TransactionReference, Amount, Status, StatusMessage, IsTest, Hash]
+  source: openapi/ozow-openapi.yml#postPaymentRequest (NotifyUrl callback)
+- name: refund.notification
+  trigger: A refund request completes or fails.
+  payload_fields: [SiteCode, RefundId, TransactionId, Amount, Status, Hash]
+  source: openapi/ozow-openapi.yml#postRefundRequest (NotifyUrl callback)
+- name: payout.notification
+  trigger: A merchant payout completes or fails.
+  source: hub.ozow.com/docs/step-3-verify-payout-webhook-merchant-implementation
+  note: >-
+    Ozow's Payouts product posts a payout webhook to the merchant that is
+    verified with the same HashCheck scheme. The Payouts API itself is not
+    modeled in openapi/ozow-openapi.yml.

@@ -1,0 +1,27 @@
+generated: '2026-07-17'
+method: searched
+source: live probes of /.well-known/* on Ozow hosts, 2026-07-17
+hosts:
+- host: https://api.ozow.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+- host: https://ozow.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://hub.ozow.com
+  documents:
+  - path: /.well-known/api-catalog
+    status: 404
+notes: >-
+  No /.well-known/ discovery documents are published on any Ozow host at probe
+  time. Ozow authenticates with an ApiKey header plus a SHA512 HashCheck (no
+  OAuth/OIDC discovery surface); the Refunds/Payouts bearer token is issued by a
+  private token endpoint, not an RFC 8414 authorization server. Recorded for
+  auditability; no WellKnown/SecurityTxt pointer is emitted because nothing
+  returned 200.

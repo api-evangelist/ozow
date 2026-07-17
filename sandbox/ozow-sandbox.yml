@@ -1,0 +1,30 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  hub.ozow.com developer hub, ozow.com/integrations, openapi/ozow-openapi.yml.
+test_live_separation:
+  mechanism: IsTest flag
+  note: >-
+    Ozow separates test from live by the IsTest boolean on the payment/refund
+    request (and by the staging host below) rather than by key prefix. When
+    IsTest=true the request routes through the Ozow test flow and no real bank
+    debit occurs. The IsTest value MUST be included in the SHA512 HashCheck
+    concatenation.
+hosts:
+  live: https://api.ozow.com
+  staging: https://stagingapi.ozow.com
+modes:
+- field: IsTest
+  values: ['true', 'false']
+  in: request body / form post
+test_credentials:
+  note: >-
+    Ozow does not publish universal "magic" test card or test bank numbers the
+    way card acquirers do — instant EFT test payments run against sandbox bank
+    logins provisioned per merchant in the test environment. Test SiteCode,
+    ApiKey, and PrivateKey are issued in the merchant dashboard (dash.ozow.com).
+    No published test values are reproduced here (none are safe to invent).
+notes: >-
+  To go live, disable IsTest and switch to the production SiteCode/keys. Always
+  validate the NotifyUrl status server-side before fulfilment in both test and
+  live.

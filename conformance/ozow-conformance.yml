@@ -1,0 +1,39 @@
+generated: '2026-07-17'
+method: searched
+source: >-
+  openapi/ozow-openapi.yml (derived) + Ozow security/compliance claims on
+  ozow.com and the privacy policy (searched). See security/ozow-trust-center.yml.
+standards:
+- id: pci-dss
+  conforms: true
+  level: Level 1
+  evidence: Ozow states PCI DSS Level 1 compliance (ozow.com, privacy policy).
+- id: iso-27001
+  conforms: true
+  evidence: Ozow states ISO/IEC 27001 certification (ozow.com, privacy policy).
+- id: psd2
+  conforms: false
+  evidence: South African instant-EFT provider; PSD2 is an EU regime and does not apply.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    No OAuth2 authorization-code/client-credentials flow. Primary auth is an
+    ApiKey header + SHA512 HashCheck; Refunds/Payouts use an opaque bearer token
+    from a private token endpoint (no scopes, no discovery).
+- id: oidc
+  conforms: false
+  evidence: No /.well-known/openid-configuration (404).
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors return a proprietary {errorMessage, errorCode} envelope, not
+    application/problem+json. See errors/ozow-problem-types.yml.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on ozow.com and api.ozow.com.
+- id: idempotency
+  conforms: false
+  evidence: >-
+    No documented Idempotency-Key header; TransactionReference is a unique
+    merchant reference used for matching/reconciliation, not a documented
+    idempotent-replay contract.
