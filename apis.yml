@@ -1,0 +1,123 @@
+aid: ozow
+url: https://raw.githubusercontent.com/api-evangelist/ozow/refs/heads/main/apis.yml
+name: Ozow
+kind: company
+description: Ozow (formerly i-Pay) is a South African fintech providing an instant
+  EFT / "Pay by Bank" payment gateway. Merchants create a server-side payment request,
+  redirect the customer to the Ozow secure bank-selection flow, and reconcile via a
+  server-to-server notification. The REST API is ZAR-only (CountryCode ZA), authenticated
+  with an ApiKey header and a SHA512 HashCheck built from a merchant PrivateKey.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Payments
+- Instant EFT
+- Pay by Bank
+- Fintech
+- South Africa
+created: '2026-07-17'
+modified: '2026-07-17'
+specificationVersion: '0.19'
+apis:
+- aid: ozow:ozow-payments-api
+  name: Ozow Payments API
+  tags:
+  - Payments
+  - Instant EFT
+  - Pay by Bank
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://hub.ozow.com/docs
+  baseURL: https://api.ozow.com
+  properties:
+  - url: https://hub.ozow.com/docs
+    type: Documentation
+  - url: https://ozow.com/integrations
+    type: APIReference
+  - url: openapi/ozow-openapi.yml
+    type: OpenAPI
+  - url: collections/ozow.postman_collection.json
+    type: PostmanCollection
+  description: Creates an instant EFT payment request (POST /postpaymentrequest) and
+    returns a redirect URL to the Ozow secure bank-selection page. ZAR-only, ApiKey
+    header plus SHA512 HashCheck over the field set with the merchant PrivateKey.
+- aid: ozow:ozow-transactions-api
+  name: Ozow Transactions API
+  tags:
+  - Transactions
+  - Reconciliation
+  - Status
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://hub.ozow.com/docs
+  baseURL: https://api.ozow.com
+  properties:
+  - url: https://hub.ozow.com/docs
+    type: Documentation
+  - url: openapi/ozow-openapi.yml
+    type: OpenAPI
+  - url: collections/ozow.postman_collection.json
+    type: PostmanCollection
+  description: Query transaction status by Ozow transaction id (GET /GetTransaction)
+    or by merchant reference (GET /GetTransactionByReference). Returns an array of
+    transaction objects for reconciliation.
+- aid: ozow:ozow-banks-api
+  name: Ozow Bank List API
+  tags:
+  - Banks
+  - Bank Selection
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://hub.ozow.com/docs
+  baseURL: https://api.ozow.com
+  properties:
+  - url: https://hub.ozow.com/docs
+    type: Documentation
+  - url: openapi/ozow-openapi.yml
+    type: OpenAPI
+  - url: collections/ozow.postman_collection.json
+    type: PostmanCollection
+  description: Returns the list of supported banks (GET /GetBanks) for merchants that
+    render their own bank-selection UI ahead of redirecting to the Ozow flow.
+- aid: ozow:ozow-refunds-api
+  name: Ozow Refunds API
+  tags:
+  - Refunds
+  - Payouts
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://hub.ozow.com/docs
+  baseURL: https://api.ozow.com
+  properties:
+  - url: https://hub.ozow.com/docs
+    type: Documentation
+  - url: openapi/ozow-openapi.yml
+    type: OpenAPI
+  - url: collections/ozow.postman_collection.json
+    type: PostmanCollection
+  description: Refunds previously completed EFT payments from the merchant Ozow float
+    (POST /PostRefundRequest). Uses a bearer token from the Ozow token service plus
+    a HashCheck; Ozow notifies the merchant NotifyUrl on completion or failure.
+common:
+- type: AgenticAccess
+  url: agentic-access/ozow-agentic-access.yml
+- type: TrustCenter
+  url: security/ozow-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/ozow-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/ozow-domain-security.yml
+- type: Authentication
+  url: authentication/ozow-authentication.yml
+- type: LinkedIn
+  url: https://za.linkedin.com/company/ozowsecurepayments
+- type: Website
+  url: https://ozow.com/
+- type: Documentation
+  url: https://hub.ozow.com/docs
+- type: Plans
+  url: plans/ozow-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/ozow-rate-limits.yml
+- type: FinOps
+  url: finops/ozow-finops.yml
+- url: https://ozow.com/blog
+  type: Blog
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

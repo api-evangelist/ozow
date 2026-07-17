@@ -1,0 +1,52 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Ozow
+providerId: ozow
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: false
+tags:
+- Payments
+- Instant EFT
+- Pay by Bank
+- Fintech
+- South Africa
+- Rate Limiting
+- Quotas
+description: >-
+  Ozow does not publish explicit numeric API rate limits in its developer
+  hub. As a card/EFT payment gateway it applies standard fraud, velocity and
+  abuse controls server-side, and merchant integrations are expected to
+  generate a fresh SHA512 HashCheck per request and to reconcile via the
+  NotifyUrl webhook rather than aggressively polling the transaction-query
+  endpoints. Specific per-endpoint limits are not documented.
+notes: >-
+  No published rate-limit table exists as of the review date; confirm any
+  throttling, polling guidance and burst constraints with Ozow integration
+  support. Poll GetTransaction / GetTransactionByReference sparingly and
+  prefer webhook notifications for status.
+sources:
+- https://hub.ozow.com/docs
+- https://ozow.com/integrations
+responseCodes:
+  throttled: 429
+limits:
+- name: Payment request submission
+  scope: merchant
+  metric: requests
+  limit: see provider documentation
+  notes: Not numerically published; subject to fraud/velocity controls.
+- name: Transaction query (GetTransaction / GetTransactionByReference)
+  scope: merchant
+  metric: requests
+  limit: see provider documentation
+  notes: Prefer NotifyUrl webhooks over polling; no published poll ceiling.
+policies:
+- name: Webhook-first reconciliation
+  description: Use the NotifyUrl server-to-server callback for status rather than polling query endpoints.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on any 429.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

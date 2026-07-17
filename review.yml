@@ -1,0 +1,64 @@
+aid: ozow
+name: Ozow
+review:
+  question: Does Ozow expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-17'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. Ozow's public developer surface is a
+    synchronous HTTPS REST API plus server-to-server HTTP webhook callbacks
+    (NotifyUrl POST notifications for payments, refunds and payouts). Webhook
+    callbacks are ordinary merchant-hosted HTTP endpoints, not a provider
+    event stream, and there is no documented SSE stream, so no AsyncAPI
+    modeling was warranted under current scope.
+findings:
+  summary: |
+    Ozow does not publish a documented public WebSocket API. Integration is
+    server-side REST over HTTPS: the merchant POSTs a payment request to
+    https://api.ozow.com/postpaymentrequest, redirects the customer to the
+    Ozow secure bank-selection page (pay.ozow.com), and receives the outcome
+    via a browser redirect (Success/Error/Cancel URLs) and a server-to-server
+    NotifyUrl POST. Status can also be pulled via GET /GetTransaction and
+    GET /GetTransactionByReference. A third-party tutorial demonstrates using
+    SignalR (WebSocket) inside an in-app browser to observe the hosted payment
+    page, but that is client-side plumbing around Ozow's own web UI, not a
+    documented public Ozow WebSocket API endpoint.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.ozow.com
+      documented: true
+    - protocol: Webhook
+      scheme: https
+      note: Merchant-hosted NotifyUrl receives server-to-server POST notifications for payment, refund and payout status. HTTP callback, not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No ws://|wss:// endpoint is documented on hub.ozow.com or the Ozow integrations pages. A community SignalR example wraps the hosted payment page and is not a provider API.
+  endpointsConfirmedRest:
+    - POST https://api.ozow.com/postpaymentrequest
+    - GET  https://api.ozow.com/GetTransaction
+    - GET  https://api.ozow.com/GetTransactionByReference
+    - GET  https://api.ozow.com/GetBanks
+    - POST https://api.ozow.com/PostRefundRequest
+    - POST https://stagingapi.ozow.com/postpaymentrequest
+sources:
+  - url: https://hub.ozow.com/docs
+    type: Documentation
+    note: Developer hub documents REST endpoints and webhook (NotifyUrl) callbacks; no WebSocket surface.
+  - url: https://ozow.com/integrations
+    type: Documentation
+    note: Integration guide describes server-side POST + redirect + notification flow over HTTPS.
+  - url: https://github.com/wdtheprovider/ozpay/blob/master/payment.php
+    type: SDK
+    note: Community PHP integration confirms POST /postpaymentrequest, ApiKey header and SHA512 HashCheck over the ordered field set with PrivateKey.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: false
+  reason: |
+    No WebSocket or SSE protocol surface exists. Ozow uses request/response
+    REST plus HTTP webhook callbacks only, so no AsyncAPI document was authored
+    and the apis.yml carries no AsyncAPI pointer.

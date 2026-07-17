@@ -1,0 +1,29 @@
+generated: '2026-07-17'
+method: searched
+probe: true
+source: https://ozow.com/
+url: https://ozow.com/
+certifications:
+- PCI DSS Level 1
+- ISO/IEC 27001
+compliance:
+- Registered Third Party Payment Provider (TPPP) with the Payments Association of South Africa (PASA)
+- Registered Financial Services Provider (FSP)
+- Merchant aggregator registered with Mastercard and Nedbank; Alliance Banking partner of Nedbank
+evidence:
+- source: https://ozow.com/
+  keywords:
+  - pci dss level 1
+  - iso 27001
+  - secure
+- source: https://ozow.com/privacy-policy
+  keywords:
+  - incident response
+  - iso 27001
+  - pci dss
+notes: >-
+  Ozow does not publish a dedicated hosted "trust center" portal; security and
+  compliance claims are stated on ozow.com and in the privacy policy. PCI DSS
+  Level 1 and ISO 27001 certifications support its instant-EFT and card
+  offerings. Verify current certification status directly with Ozow for
+  contractual use.

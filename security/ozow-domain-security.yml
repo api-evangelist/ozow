@@ -1,0 +1,49 @@
+generated: '2026-07-17'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: ozow.com
+  https: true
+  http_status: 200
+  cert_expires: Sep 22 15:12:02 2026 GMT
+  cert_issuer: Let's Encrypt (YR2)
+  hsts: true
+  hsts_max_age: 31536000
+- host: api.ozow.com
+  https: true
+  http_status: 404
+  http_note: Root returns 404; API endpoints require a path plus query/body and ApiKey header.
+  cert_expires: Jan 30 23:59:59 2027 GMT
+  cert_issuer: Amazon (RSA 2048 M01)
+  hsts: null
+- host: hub.ozow.com
+  https: true
+  http_status: 200
+  cert_expires: Oct 11 01:03:21 2026 GMT
+  cert_issuer: Google Trust Services (WE1)
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+- host: dash.ozow.com
+  https: true
+  http_status: 302
+  cert_expires: Sep  8 04:17:55 2026 GMT
+  cert_issuer: Google Trust Services (WE1)
+  hsts: true
+  hsts_max_age: 31536000
+  hsts_include_subdomains: true
+- host: pay.ozow.com
+  https: true
+  http_status: 302
+  http_note: Redirects into the hosted secure bank-selection flow (pay.ozow.com/:uuid/Secure).
+  cert_expires: Oct 16 23:59:59 2026 GMT
+  cert_issuer: Amazon (RSA 2048 M01)
+domains:
+- domain: ozow.com
+  spf: true
+  spf_record: v=spf1 redirect=_s7wa9pc2t.sdmarc.net
+  dmarc: true
+  dmarc_policy: reject
+  dmarc_pct: 100
+  security_txt: false
+  security_txt_note: https://ozow.com/.well-known/security.txt returned HTTP 404 at probe time.

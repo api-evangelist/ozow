@@ -1,0 +1,90 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Ozow
+providerId: ozow
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: true
+tags:
+- Payments
+- Instant EFT
+- Pay by Bank
+- Fintech
+- South Africa
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Ozow merchant costs. Ozow charges a percentage fee per
+  successful transaction in ZAR, tiered by transaction value, with no monthly
+  subscription or setup fees and a R1.00 per-transaction minimum. Cost is
+  therefore a function of successful payment volume and value mix, plus any
+  fees for additional products (Refunds, Payouts, POS, e-Commerce, QR).
+notes: >-
+  Percentage tiers change; verify against the Ozow pricing page and the
+  merchant agreement during reconciliation. Costs are settlement/merchant
+  fees, not API metering.
+sources:
+- https://ozow.com/pricing
+- https://ozow.com/merchants
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Ozow
+serviceCategory: Payment Processing
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Per-transaction / settlement
+  billingCurrency: ZAR
+  chargeCategories:
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Ozow Instant EFT
+  ServiceCategory: Payment Processing
+  ProviderName: Ozow
+  PublisherName: Ozow
+  InvoiceIssuerName: Ozow
+  BillingCurrency: ZAR
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: transaction_fee
+  description: Percentage fee charged per successful EFT transaction, tiered by value band (min R1.00).
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - merchant
+  - site
+  - value_band
+- name: refund_volume
+  description: Refunds disbursed from the merchant Ozow float (may carry a product fee).
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - merchant
+  - site
+- name: payout_volume
+  description: Payouts disbursed to recipients (may carry a product fee).
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - merchant
+  - site
+principles:
+- name: Visibility
+  description: Pull Ozow settlement statements; track effective fee rate by value band and product.
+- name: Allocation
+  description: Tag transactions per site/SiteCode and reference to map fees to internal cost centers.
+- name: Optimization
+  description: Route higher-value transactions to benefit from lower tiers; negotiate volume rates; minimise reversals/refunds.
+- name: Accountability
+  description: Reconcile NotifyUrl notifications against settlements monthly; assign an owner per merchant site.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

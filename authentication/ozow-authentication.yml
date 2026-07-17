@@ -1,0 +1,37 @@
+generated: '2026-07-17'
+method: modeled-from-docs
+source: openapi/ozow-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+schemes:
+- name: ApiKey
+  type: apiKey
+  in: header
+  headerName: ApiKey
+  note: >-
+    Merchant API key issued in the Ozow dashboard (dash.ozow.com), sent on
+    payment and transaction-query requests alongside a SHA512 HashCheck field.
+    The HashCheck is computed by concatenating the request fields in the
+    documented order (SiteCode, CountryCode, CurrencyCode, Amount,
+    TransactionReference, BankReference, CancelUrl, ErrorUrl, SuccessUrl,
+    NotifyUrl, IsTest), appending the merchant PrivateKey, lower-casing the
+    string, and taking the SHA512 hex digest. Incoming NotifyUrl notifications
+    are verified the same way (concatenate response fields excluding Hash,
+    append PrivateKey, lowercase, SHA512).
+  sources:
+  - openapi/ozow-openapi.yml
+  - https://hub.ozow.com/docs
+  - https://ozow.com/integrations
+- name: BearerToken
+  type: http
+  scheme: bearer
+  bearerFormat: token
+  note: >-
+    The Refunds and Payouts APIs authenticate with a reusable bearer token
+    obtained from the Ozow identity/token service (a "Get Token" request),
+    used until it expires, in addition to a per-request HashCheck.
+  sources:
+  - https://hub.ozow.com/docs
+  - https://api.i-pay.co.za/guide/refund

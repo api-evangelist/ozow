@@ -1,0 +1,81 @@
+generated: '2026-07-17'
+method: generated
+source: openapi/ozow-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the modeled OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. Payment initiation and refunds move money and should require
+  human-in-the-loop by default. See research/curity/agentic-governance/.
+summary:
+  operations: 5
+  by_action_class:
+    acting: 2
+    connected: 3
+  by_consequence:
+    write: 2
+    read: 3
+  human_in_the_loop_required: 2
+operations:
+- path: /postpaymentrequest
+  method: post
+  operationId: postPaymentRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - money-movement
+      - high-value
+      - abnormal
+    audit: required
+- path: /GetTransaction
+  method: get
+  operationId: getTransaction
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /GetTransactionByReference
+  method: get
+  operationId: getTransactionByReference
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /GetBanks
+  method: get
+  operationId: getBanks
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /PostRefundRequest
+  method: post
+  operationId: postRefundRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+    escalation:
+      human-in-the-loop: required
+      triggers:
+      - money-movement
+      - refund
+      - high-value
+    audit: required

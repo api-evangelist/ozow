@@ -1,0 +1,142 @@
+{
+  "info": {
+    "name": "Ozow API",
+    "description": "Ozow instant EFT / Pay by Bank API (modeled from hub.ozow.com and Ozow integration docs). ZAR-only. Write requests use the ApiKey header plus a SHA512 HashCheck computed from the ordered field set with the merchant PrivateKey appended. Set baseUrl to https://stagingapi.ozow.com for testing.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://api.ozow.com" },
+    { "key": "apiKey", "value": "" },
+    { "key": "siteCode", "value": "" },
+    { "key": "transactionId", "value": "" },
+    { "key": "transactionReference", "value": "" },
+    { "key": "hashCheck", "value": "" },
+    { "key": "bearerToken", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Create Payment Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "ApiKey", "value": "{{apiKey}}" },
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/postpaymentrequest",
+              "host": ["{{baseUrl}}"],
+              "path": ["postpaymentrequest"]
+            },
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"SiteCode\": \"{{siteCode}}\",\n  \"CountryCode\": \"ZA\",\n  \"CurrencyCode\": \"ZAR\",\n  \"Amount\": 25.01,\n  \"TransactionReference\": \"INV-0001\",\n  \"BankReference\": \"MyStore\",\n  \"CancelUrl\": \"https://example.com/cancel\",\n  \"ErrorUrl\": \"https://example.com/error\",\n  \"SuccessUrl\": \"https://example.com/success\",\n  \"NotifyUrl\": \"https://example.com/notify\",\n  \"IsTest\": true,\n  \"HashCheck\": \"{{hashCheck}}\"\n}"
+            },
+            "description": "Creates an instant EFT payment request and returns a redirect URL to the Ozow secure bank-selection page. HashCheck = SHA512(lowercase(SiteCode+CountryCode+CurrencyCode+Amount+TransactionReference+BankReference+CancelUrl+ErrorUrl+SuccessUrl+NotifyUrl+IsTest+PrivateKey))."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "Get Transaction by Id",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "ApiKey", "value": "{{apiKey}}" },
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/GetTransaction?siteCode={{siteCode}}&transactionId={{transactionId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["GetTransaction"],
+              "query": [
+                { "key": "siteCode", "value": "{{siteCode}}" },
+                { "key": "transactionId", "value": "{{transactionId}}" }
+              ]
+            },
+            "description": "Query a transaction using the Ozow transaction id. Returns an array of transaction objects."
+          }
+        },
+        {
+          "name": "Get Transaction by Reference",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "ApiKey", "value": "{{apiKey}}" },
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/GetTransactionByReference?siteCode={{siteCode}}&transactionReference={{transactionReference}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["GetTransactionByReference"],
+              "query": [
+                { "key": "siteCode", "value": "{{siteCode}}" },
+                { "key": "transactionReference", "value": "{{transactionReference}}" }
+              ]
+            },
+            "description": "Query a transaction using the merchant TransactionReference. Returns an array of transaction objects."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Banks",
+      "item": [
+        {
+          "name": "Get Banks",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "ApiKey", "value": "{{apiKey}}" },
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/GetBanks?siteCode={{siteCode}}&countryCode=ZA",
+              "host": ["{{baseUrl}}"],
+              "path": ["GetBanks"],
+              "query": [
+                { "key": "siteCode", "value": "{{siteCode}}" },
+                { "key": "countryCode", "value": "ZA" }
+              ]
+            },
+            "description": "Returns the list of banks Ozow supports for the site/country, for merchants rendering their own bank-selection UI."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Refunds",
+      "item": [
+        {
+          "name": "Post Refund Request",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{bearerToken}}" },
+              { "key": "Accept", "value": "application/json" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/PostRefundRequest",
+              "host": ["{{baseUrl}}"],
+              "path": ["PostRefundRequest"]
+            },
+            "body": {
+              "mode": "raw",
+              "options": { "raw": { "language": "json" } },
+              "raw": "{\n  \"SiteCode\": \"{{siteCode}}\",\n  \"TransactionId\": \"{{transactionId}}\",\n  \"Amount\": 25.01,\n  \"RefundReference\": \"REF-0001\",\n  \"NotifyUrl\": \"https://example.com/refund-notify\",\n  \"IsTest\": true,\n  \"HashCheck\": \"{{hashCheck}}\"\n}"
+            },
+            "description": "Refunds a previously completed EFT payment from the merchant Ozow float. Authenticated with a bearer token from the Ozow token service plus a HashCheck. Ozow notifies the NotifyUrl on completion or failure."
+          }
+        }
+      ]
+    }
+  ]
+}

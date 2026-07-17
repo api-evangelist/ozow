@@ -1,0 +1,111 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Ozow
+providerId: ozow
+created: '2026-07-17'
+modified: '2026-07-17'
+reconciled: true
+tags:
+- Payments
+- Instant EFT
+- Pay by Bank
+- Fintech
+- South Africa
+- Plans
+description: >-
+  Ozow prices merchants on a per-successful-transaction percentage basis in
+  ZAR, with no monthly subscription, setup, activation or deactivation fees.
+  The headline instant-EFT rate is tiered by transaction value (lower rate at
+  higher value bands) with a minimum per-transaction fee. Negotiated volume
+  rates can go lower. Additional products (Refunds, Payouts, Point of Sale,
+  e-Commerce, QR) may carry their own fees.
+notes: >-
+  Rates below are as published on the Ozow pricing page and may change; verify
+  current tiers and any product-specific fees directly with Ozow before use.
+  A promotional "first R1 million/month free in year one" offer has been
+  advertised for new merchants.
+sources:
+- https://ozow.com/pricing
+- https://ozow.com/merchants
+- https://hub.ozow.com/docs
+plans:
+- id: ozow-instant-eft
+  name: Instant EFT (Pay by Bank)
+  type: usage
+  description: >-
+    Per-successful-transaction percentage fee in ZAR, tiered by transaction
+    value, with a R1.00 minimum per transaction and no fixed monthly costs.
+  currency: ZAR
+  entries:
+  - label: Transactions R0 - R249,999.99
+    name: eft_tier_1
+    type: usage
+    metric: transaction_value
+    limit: -1
+    timeFrame: transaction
+    geo: ZA
+    unit: 1
+    price: 2.85% (min R1.00 per transaction)
+    userMultiplied: false
+  - label: Transactions R250,000 - R499,999.99
+    name: eft_tier_2
+    type: usage
+    metric: transaction_value
+    limit: -1
+    timeFrame: transaction
+    geo: ZA
+    unit: 1
+    price: 2.75% (min R1.00 per transaction)
+    userMultiplied: false
+  - label: Transactions R500,000 - R1,000,000
+    name: eft_tier_3
+    type: usage
+    metric: transaction_value
+    limit: -1
+    timeFrame: transaction
+    geo: ZA
+    unit: 1
+    price: 2.65% (min R1.00 per transaction)
+    userMultiplied: false
+  - label: Negotiated volume rate
+    name: eft_negotiated
+    type: usage
+    metric: transaction_value
+    limit: -1
+    timeFrame: transaction
+    geo: ZA
+    unit: 1
+    price: as low as 1.5% (volume-dependent, contact sales)
+    userMultiplied: false
+  elements:
+  - name: No monthly subscription
+  - name: No setup / activation / deactivation fees
+  - name: Pay only on successful transactions
+- id: ozow-additional-products
+  name: Additional Products
+  type: usage
+  description: >-
+    Refunds, Payouts, Point of Sale, e-Commerce and QR products may carry
+    separate fees layered on the instant-EFT rate.
+  currency: ZAR
+  entries:
+  - label: Product fees
+    name: product_fees
+    type: usage
+    metric: contract
+    limit: -1
+    timeFrame: transaction
+    geo: ZA
+    unit: 1
+    price: subject to product and merchant agreement
+    userMultiplied: false
+  elements:
+  - name: Refunds
+  - name: Payouts
+  - name: Point of Sale
+  - name: e-Commerce
+  - name: QR Code
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
