@@ -1,0 +1,148 @@
+openapi: 3.0.3
+info:
+  title: Ozow Banks Payments API
+  description: Ozow (formerly i-Pay) is a South African instant EFT / "Pay by Bank" payment gateway. Merchants create a payment request server-side, redirect the customer to the Ozow secure bank-selection flow, and receive a server-to-server notification plus browser redirect on completion. All write requests are authenticated with an ApiKey header and a SHA512 HashCheck computed by concatenating the request fields in documented order, appending the merchant PrivateKey, lower-casing, and hashing. Transactions are ZAR-only (CountryCode ZA, CurrencyCode ZAR).
+  termsOfService: https://ozow.com/terms-and-conditions
+  contact:
+    name: Ozow Support
+    email: support@ozow.com
+    url: https://hub.ozow.com/docs
+  version: '1.0'
+servers:
+- url: https://api.ozow.com
+  description: Production
+- url: https://stagingapi.ozow.com
+  description: Staging / sandbox (also driven by the IsTest flag)
+tags:
+- name: Payments
+  description: Create and initiate instant EFT payment requests.
+paths:
+  /postpaymentrequest:
+    post:
+      operationId: postPaymentRequest
+      tags:
+      - Payments
+      summary: Create a payment request
+      description: Creates an instant EFT payment request and returns a redirect URL to the Ozow secure bank-selection page. The HashCheck is computed over SiteCode, CountryCode, CurrencyCode, Amount, TransactionReference, BankReference, Cancel/Error/Success/Notify URLs and IsTest, with the merchant PrivateKey appended.
+      security:
+      - ApiKey: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PaymentRequest'
+      responses:
+        '200':
+          description: Payment request created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+        '400':
+          description: Invalid request or hash mismatch.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    PaymentRequest:
+      type: object
+      required:
+      - SiteCode
+      - CountryCode
+      - CurrencyCode
+      - Amount
+      - TransactionReference
+      - BankReference
+      - HashCheck
+      properties:
+        SiteCode:
+          type: string
+          description: Merchant site code from the Ozow dashboard.
+        CountryCode:
+          type: string
+          enum:
+          - ZA
+          description: Two-letter country code. Only ZA (South Africa) is supported.
+        CurrencyCode:
+          type: string
+          enum:
+          - ZAR
+          description: Three-letter currency code. Only ZAR is supported.
+        Amount:
+          type: number
+          format: double
+          description: Transaction amount in ZAR (e.g. 25.01).
+        TransactionReference:
+          type: string
+          description: Unique merchant reference used to match the transaction.
+        BankReference:
+          type: string
+          description: Reference shown on the customer bank statement (max ~20 chars).
+        Optional1:
+          type: string
+        Optional2:
+          type: string
+        Optional3:
+          type: string
+        Optional4:
+          type: string
+        Optional5:
+          type: string
+        Customer:
+          type: string
+          description: Optional customer name/identifier.
+        CancelUrl:
+          type: string
+          format: uri
+        ErrorUrl:
+          type: string
+          format: uri
+        SuccessUrl:
+          type: string
+          format: uri
+        NotifyUrl:
+          type: string
+          format: uri
+          description: Server-to-server notification (POST) callback URL.
+        IsTest:
+          type: boolean
+          description: When true, routes the request through the Ozow test flow.
+        HashCheck:
+          type: string
+          description: SHA512 hex hash of the concatenated request fields (in documented order) with the merchant PrivateKey appended, lower-cased.
+    PaymentResponse:
+      type: object
+      properties:
+        paymentRequestId:
+          type: string
+          description: Ozow-generated payment request id (GUID).
+        url:
+          type: string
+          format: uri
+          description: Redirect URL to the Ozow secure bank-selection page.
+        errorMessage:
+          type: string
+          nullable: true
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+        errorCode:
+          type: string
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: ApiKey
+      description: Merchant API key issued in the Ozow merchant dashboard (dash.ozow.com). Sent alongside a SHA512 HashCheck field computed with the merchant PrivateKey.
+    BearerToken:
+      type: http
+      scheme: bearer
+      description: OAuth-style bearer token obtained from the Ozow token endpoint, used by the Refunds and Payouts APIs. Tokens are reusable until expiry.

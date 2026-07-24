@@ -1,0 +1,102 @@
+openapi: 3.0.3
+info:
+  title: Ozow Banks Refunds API
+  description: Ozow (formerly i-Pay) is a South African instant EFT / "Pay by Bank" payment gateway. Merchants create a payment request server-side, redirect the customer to the Ozow secure bank-selection flow, and receive a server-to-server notification plus browser redirect on completion. All write requests are authenticated with an ApiKey header and a SHA512 HashCheck computed by concatenating the request fields in documented order, appending the merchant PrivateKey, lower-casing, and hashing. Transactions are ZAR-only (CountryCode ZA, CurrencyCode ZAR).
+  termsOfService: https://ozow.com/terms-and-conditions
+  contact:
+    name: Ozow Support
+    email: support@ozow.com
+    url: https://hub.ozow.com/docs
+  version: '1.0'
+servers:
+- url: https://api.ozow.com
+  description: Production
+- url: https://stagingapi.ozow.com
+  description: Staging / sandbox (also driven by the IsTest flag)
+tags:
+- name: Refunds
+  description: Refund previously completed EFT payments from the merchant float.
+paths:
+  /PostRefundRequest:
+    post:
+      operationId: postRefundRequest
+      tags:
+      - Refunds
+      summary: Request a refund
+      description: Instructs Ozow to refund a previously completed EFT payment from the merchant Ozow float. Refund requests are authenticated with a bearer token obtained from the Ozow identity/token service (not the ApiKey header) and carry their own HashCheck. Ozow notifies the merchant NotifyUrl when the refund completes or fails.
+      security:
+      - BearerToken: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefundRequest'
+      responses:
+        '200':
+          description: Refund accepted for processing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundResponse'
+        '400':
+          description: Invalid request or hash mismatch.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    RefundRequest:
+      type: object
+      required:
+      - SiteCode
+      - TransactionId
+      - Amount
+      - RefundReference
+      - HashCheck
+      properties:
+        SiteCode:
+          type: string
+        TransactionId:
+          type: string
+          description: Ozow transaction id of the original completed payment.
+        Amount:
+          type: number
+          format: double
+        RefundReference:
+          type: string
+        NotifyUrl:
+          type: string
+          format: uri
+        IsTest:
+          type: boolean
+        HashCheck:
+          type: string
+    RefundResponse:
+      type: object
+      properties:
+        refundId:
+          type: string
+        status:
+          type: string
+        errorMessage:
+          type: string
+          nullable: true
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+        errorCode:
+          type: string
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: ApiKey
+      description: Merchant API key issued in the Ozow merchant dashboard (dash.ozow.com). Sent alongside a SHA512 HashCheck field computed with the merchant PrivateKey.
+    BearerToken:
+      type: http
+      scheme: bearer
+      description: OAuth-style bearer token obtained from the Ozow token endpoint, used by the Refunds and Payouts APIs. Tokens are reusable until expiry.

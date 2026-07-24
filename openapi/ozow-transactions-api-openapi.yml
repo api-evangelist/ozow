@@ -1,0 +1,129 @@
+openapi: 3.0.3
+info:
+  title: Ozow Banks Transactions API
+  description: Ozow (formerly i-Pay) is a South African instant EFT / "Pay by Bank" payment gateway. Merchants create a payment request server-side, redirect the customer to the Ozow secure bank-selection flow, and receive a server-to-server notification plus browser redirect on completion. All write requests are authenticated with an ApiKey header and a SHA512 HashCheck computed by concatenating the request fields in documented order, appending the merchant PrivateKey, lower-casing, and hashing. Transactions are ZAR-only (CountryCode ZA, CurrencyCode ZAR).
+  termsOfService: https://ozow.com/terms-and-conditions
+  contact:
+    name: Ozow Support
+    email: support@ozow.com
+    url: https://hub.ozow.com/docs
+  version: '1.0'
+servers:
+- url: https://api.ozow.com
+  description: Production
+- url: https://stagingapi.ozow.com
+  description: Staging / sandbox (also driven by the IsTest flag)
+tags:
+- name: Transactions
+  description: Query transaction status by Ozow reference or merchant reference.
+paths:
+  /GetTransaction:
+    get:
+      operationId: getTransaction
+      tags:
+      - Transactions
+      summary: Get transaction by Ozow transaction id
+      description: Queries a transaction using the Ozow transaction id.
+      security:
+      - ApiKey: []
+      parameters:
+      - name: siteCode
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Merchant SiteCode.
+      - name: transactionId
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Ozow transaction id (GUID).
+      responses:
+        '200':
+          description: Array of matching transaction objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+  /GetTransactionByReference:
+    get:
+      operationId: getTransactionByReference
+      tags:
+      - Transactions
+      summary: Get transaction by merchant reference
+      description: Queries a transaction using the merchant TransactionReference.
+      security:
+      - ApiKey: []
+      parameters:
+      - name: siteCode
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Merchant SiteCode.
+      - name: transactionReference
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Merchant-supplied transaction reference.
+      responses:
+        '200':
+          description: Array of matching transaction objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
+components:
+  schemas:
+    Transaction:
+      type: object
+      properties:
+        transactionId:
+          type: string
+        merchantCode:
+          type: string
+        siteCode:
+          type: string
+        countryCode:
+          type: string
+        currencyCode:
+          type: string
+        amount:
+          type: number
+          format: double
+        transactionReference:
+          type: string
+        bankReference:
+          type: string
+        status:
+          type: string
+          description: e.g. Complete, Cancelled, Error, PendingInvestigation, Abandoned.
+        statusMessage:
+          type: string
+        isTest:
+          type: boolean
+        createdDate:
+          type: string
+          format: date-time
+        paymentDate:
+          type: string
+          format: date-time
+          nullable: true
+        hash:
+          type: string
+  securitySchemes:
+    ApiKey:
+      type: apiKey
+      in: header
+      name: ApiKey
+      description: Merchant API key issued in the Ozow merchant dashboard (dash.ozow.com). Sent alongside a SHA512 HashCheck field computed with the merchant PrivateKey.
+    BearerToken:
+      type: http
+      scheme: bearer
+      description: OAuth-style bearer token obtained from the Ozow token endpoint, used by the Refunds and Payouts APIs. Tokens are reusable until expiry.
