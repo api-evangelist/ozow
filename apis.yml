@@ -7,7 +7,20 @@ description: Ozow (formerly i-Pay) is a South African fintech providing an insta
   redirect the customer to the Ozow secure bank-selection flow, and reconcile via a
   server-to-server notification. The REST API is ZAR-only (CountryCode ZA), authenticated
   with an ApiKey header and a SHA512 HashCheck built from a merchant PrivateKey.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ozow.png
 tags:
 - Payments
 - Instant EFT
@@ -18,82 +31,73 @@ created: '2026-07-17'
 modified: '2026-07-17'
 specificationVersion: '0.19'
 apis:
-- aid: ozow:ozow-payments-api
-  name: Ozow Payments API
-  tags:
-  - Payments
-  - Instant EFT
-  - Pay by Bank
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://hub.ozow.com/docs
-  baseURL: https://api.ozow.com
-  properties:
-  - url: https://hub.ozow.com/docs
-    type: Documentation
-  - url: https://ozow.com/integrations
-    type: APIReference
-  - url: openapi/ozow-openapi.yml
-    type: OpenAPI
-  - url: collections/ozow.postman_collection.json
-    type: PostmanCollection
-  description: Creates an instant EFT payment request (POST /postpaymentrequest) and
-    returns a redirect URL to the Ozow secure bank-selection page. ZAR-only, ApiKey
-    header plus SHA512 HashCheck over the field set with the merchant PrivateKey.
-- aid: ozow:ozow-transactions-api
-  name: Ozow Transactions API
-  tags:
-  - Transactions
-  - Reconciliation
-  - Status
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://hub.ozow.com/docs
-  baseURL: https://api.ozow.com
-  properties:
-  - url: https://hub.ozow.com/docs
-    type: Documentation
-  - url: openapi/ozow-openapi.yml
-    type: OpenAPI
-  - url: collections/ozow.postman_collection.json
-    type: PostmanCollection
-  description: Query transaction status by Ozow transaction id (GET /GetTransaction)
-    or by merchant reference (GET /GetTransactionByReference). Returns an array of
-    transaction objects for reconciliation.
 - aid: ozow:ozow-banks-api
-  name: Ozow Bank List API
+  name: Ozow Banks API
+  description: Retrieve the list of supported banks for the payment flow.
+  humanURL: https://hub.ozow.com/docs
+  baseURL: https://api.ozow.com
   tags:
   - Banks
-  - Bank Selection
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  properties:
+  - type: OpenAPI
+    url: openapi/ozow-banks-api-openapi.yml
+  - type: Documentation
+    url: https://hub.ozow.com/docs
+  - type: APIReference
+    url: https://ozow.com/integrations
+  - type: PostmanCollection
+    url: collections/ozow.postman_collection.json
+- aid: ozow:ozow-payments-api
+  name: Ozow Payments API
+  description: Create and initiate instant EFT payment requests.
   humanURL: https://hub.ozow.com/docs
   baseURL: https://api.ozow.com
+  tags:
+  - Payments
   properties:
-  - url: https://hub.ozow.com/docs
-    type: Documentation
-  - url: openapi/ozow-openapi.yml
-    type: OpenAPI
-  - url: collections/ozow.postman_collection.json
-    type: PostmanCollection
-  description: Returns the list of supported banks (GET /GetBanks) for merchants that
-    render their own bank-selection UI ahead of redirecting to the Ozow flow.
+  - type: OpenAPI
+    url: openapi/ozow-payments-api-openapi.yml
+  - type: Documentation
+    url: https://hub.ozow.com/docs
+  - type: APIReference
+    url: https://ozow.com/integrations
+  - type: PostmanCollection
+    url: collections/ozow.postman_collection.json
 - aid: ozow:ozow-refunds-api
   name: Ozow Refunds API
-  tags:
-  - Refunds
-  - Payouts
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  description: Refund previously completed EFT payments from the merchant float.
   humanURL: https://hub.ozow.com/docs
   baseURL: https://api.ozow.com
+  tags:
+  - Refunds
   properties:
-  - url: https://hub.ozow.com/docs
-    type: Documentation
-  - url: openapi/ozow-openapi.yml
-    type: OpenAPI
-  - url: collections/ozow.postman_collection.json
-    type: PostmanCollection
-  description: Refunds previously completed EFT payments from the merchant Ozow float
-    (POST /PostRefundRequest). Uses a bearer token from the Ozow token service plus
-    a HashCheck; Ozow notifies the merchant NotifyUrl on completion or failure.
+  - type: OpenAPI
+    url: openapi/ozow-refunds-api-openapi.yml
+  - type: Documentation
+    url: https://hub.ozow.com/docs
+  - type: APIReference
+    url: https://ozow.com/integrations
+  - type: PostmanCollection
+    url: collections/ozow.postman_collection.json
+- aid: ozow:ozow-transactions-api
+  name: Ozow Transactions API
+  description: Query transaction status by Ozow reference or merchant reference.
+  humanURL: https://hub.ozow.com/docs
+  baseURL: https://api.ozow.com
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/ozow-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://hub.ozow.com/docs
+  - type: APIReference
+    url: https://ozow.com/integrations
+  - type: PostmanCollection
+    url: collections/ozow.postman_collection.json
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/ozow/overview
 - type: AgenticAccess
   url: agentic-access/ozow-agentic-access.yml
 - type: TrustCenter
