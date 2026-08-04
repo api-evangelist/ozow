@@ -1,0 +1,20 @@
+{
+  "provider": "ozow",
+  "sources": [
+    "ozow-banks-api-openapi.yml",
+    "ozow-payments-api-openapi.yml",
+    "ozow-refunds-api-openapi.yml",
+    "ozow-transactions-api-openapi.yml"
+  ],
+  "outputs": [
+    "ozow-banks-api-openapi.yml",
+    "ozow-payments-api-openapi.yml",
+    "ozow-refunds-api-openapi.yml",
+    "ozow-transactions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

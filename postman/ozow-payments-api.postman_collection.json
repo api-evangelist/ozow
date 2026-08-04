@@ -1,0 +1,206 @@
+{
+  "info": {
+    "_postman_id": "426e8147-6ed4-4fc2-ba06-7100c335f967",
+    "name": "Ozow Banks Payments API",
+    "description": "Ozow (formerly i-Pay) is a South African instant EFT / \"Pay by Bank\" payment gateway. Merchants create a payment request server-side, redirect the customer to the Ozow secure bank-selection flow, and receive a server-to-server notification plus browser redirect on completion. All write requests are authenticated with an ApiKey header and a SHA512 HashCheck computed by concatenating the request fields in documented order, appending the merchant PrivateKey, lower-casing, and hashing. Transactions are ZAR-only (CountryCode ZA, CurrencyCode ZAR).\n\nContact Support:\n Name: Ozow Support\n Email: support@ozow.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:30:16.000Z",
+    "updatedAt": "2026-07-28T02:30:16.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-426e8147-6ed4-4fc2-ba06-7100c335f967"
+  },
+  "item": [
+    {
+      "name": "postpaymentrequest",
+      "item": [
+        {
+          "name": "Create a payment request",
+          "id": "b8286531-a757-401b-844e-2674370310c0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "ApiKey",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"SiteCode\": \"<string>\",\n  \"CountryCode\": \"ZA\",\n  \"CurrencyCode\": \"ZAR\",\n  \"Amount\": \"<double>\",\n  \"TransactionReference\": \"<string>\",\n  \"BankReference\": \"<string>\",\n  \"HashCheck\": \"<string>\",\n  \"Optional1\": \"<string>\",\n  \"Optional2\": \"<string>\",\n  \"Optional3\": \"<string>\",\n  \"Optional4\": \"<string>\",\n  \"Optional5\": \"<string>\",\n  \"Customer\": \"<string>\",\n  \"CancelUrl\": \"<uri>\",\n  \"ErrorUrl\": \"<uri>\",\n  \"SuccessUrl\": \"<uri>\",\n  \"NotifyUrl\": \"<uri>\",\n  \"IsTest\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/postpaymentrequest",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "postpaymentrequest"
+              ]
+            },
+            "description": "Creates an instant EFT payment request and returns a redirect URL to the Ozow secure bank-selection page. The HashCheck is computed over SiteCode, CountryCode, CurrencyCode, Amount, TransactionReference, BankReference, Cancel/Error/Success/Notify URLs and IsTest, with the merchant PrivateKey appended."
+          },
+          "response": [
+            {
+              "id": "e04f3d1e-691f-4049-8e5c-aff808a8d378",
+              "name": "Payment request created.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "ApiKey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SiteCode\": \"<string>\",\n  \"CountryCode\": \"ZA\",\n  \"CurrencyCode\": \"ZAR\",\n  \"Amount\": \"<double>\",\n  \"TransactionReference\": \"<string>\",\n  \"BankReference\": \"<string>\",\n  \"HashCheck\": \"<string>\",\n  \"Optional1\": \"<string>\",\n  \"Optional2\": \"<string>\",\n  \"Optional3\": \"<string>\",\n  \"Optional4\": \"<string>\",\n  \"Optional5\": \"<string>\",\n  \"Customer\": \"<string>\",\n  \"CancelUrl\": \"<uri>\",\n  \"ErrorUrl\": \"<uri>\",\n  \"SuccessUrl\": \"<uri>\",\n  \"NotifyUrl\": \"<uri>\",\n  \"IsTest\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/postpaymentrequest",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "postpaymentrequest"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"paymentRequestId\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"errorMessage\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:30:16.000Z",
+              "updatedAt": "2026-07-28T02:30:16.000Z",
+              "uid": "35240-e04f3d1e-691f-4049-8e5c-aff808a8d378"
+            },
+            {
+              "id": "9fd2c8de-b77b-493b-97de-5ae8a5d76a4d",
+              "name": "Invalid request or hash mismatch.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "ApiKey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SiteCode\": \"<string>\",\n  \"CountryCode\": \"ZA\",\n  \"CurrencyCode\": \"ZAR\",\n  \"Amount\": \"<double>\",\n  \"TransactionReference\": \"<string>\",\n  \"BankReference\": \"<string>\",\n  \"HashCheck\": \"<string>\",\n  \"Optional1\": \"<string>\",\n  \"Optional2\": \"<string>\",\n  \"Optional3\": \"<string>\",\n  \"Optional4\": \"<string>\",\n  \"Optional5\": \"<string>\",\n  \"Customer\": \"<string>\",\n  \"CancelUrl\": \"<uri>\",\n  \"ErrorUrl\": \"<uri>\",\n  \"SuccessUrl\": \"<uri>\",\n  \"NotifyUrl\": \"<uri>\",\n  \"IsTest\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/postpaymentrequest",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "postpaymentrequest"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"errorMessage\": \"<string>\",\n  \"errorCode\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T02:30:16.000Z",
+              "updatedAt": "2026-07-28T02:30:16.000Z",
+              "uid": "35240-9fd2c8de-b77b-493b-97de-5ae8a5d76a4d"
+            }
+          ],
+          "createdAt": "2026-07-28T02:30:16.000Z",
+          "updatedAt": "2026-07-28T02:30:16.000Z",
+          "uid": "35240-b8286531-a757-401b-844e-2674370310c0"
+        }
+      ],
+      "id": "c6003ea6-5e18-4306-b9a1-ee23e09ff40b",
+      "createdAt": "2026-07-28T02:30:16.000Z",
+      "updatedAt": "2026-07-28T02:30:16.000Z",
+      "uid": "35240-c6003ea6-5e18-4306-b9a1-ee23e09ff40b"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.ozow.com"
+    }
+  ]
+}
