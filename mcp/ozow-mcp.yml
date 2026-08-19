@@ -2,13 +2,10 @@ generated: '2026-07-17'
 method: derived
 status: candidate
 source: openapi/ozow-openapi.yml
-description: >-
-  No official hosted/remote Ozow MCP server was found (no listing in the MCP
-  registry, npm @modelcontextprotocol, or Ozow docs at probe time). This is a
-  DERIVED candidate tool list — one tool per OpenAPI operation — as a starting
-  point for an Ozow MCP server. Money-movement tools (create_payment_request,
-  request_refund) should be gated behind human-in-the-loop per
-  agentic-access/ozow-agentic-access.yml.
+description: No official hosted/remote Ozow MCP server was found (no listing in the MCP registry, npm
+  @modelcontextprotocol, or Ozow docs at probe time). This is a DERIVED candidate tool list — one tool
+  per OpenAPI operation — as a starting point for an Ozow MCP server. Money-movement tools (create_payment_request,
+  request_refund) should be gated behind human-in-the-loop per agentic-access/ozow-agentic-access.yml.
 server:
   name: ozow
   transport: http
@@ -33,3 +30,9 @@ tools:
   description: Refund a completed EFT payment from the merchant Ozow float.
   source_operation: openapi/ozow-openapi.yml#postRefundRequest
   consequence: write
+deployment:
+  mode: none
+  verified: derived
+  tools: 5
+  checked: '2026-08-12'
+  source: catalog MCP census

@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ozow Banks API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Banks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get supported bank list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ozow.com/GetBanks",
+            "params": [
+              {
+                "name": "siteCode",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "countryCode",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "ApiKey",
+              "value": "{{ApiKey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the list of banks Ozow supports for the given site and country, for merchants who render their own bank-selection UI."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

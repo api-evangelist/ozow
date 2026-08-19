@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ozow Banks Payments API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a payment request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ozow.com/postpaymentrequest",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "ApiKey",
+              "value": "{{ApiKey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates an instant EFT payment request and returns a redirect URL to the Ozow secure bank-selection page. The HashCheck is computed over SiteCode, CountryCode, CurrencyCode, Amount, TransactionReference, BankReference, Cancel/Error/Success/Notify URLs and IsTest, with the merchant PrivateKey appended."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

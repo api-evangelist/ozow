@@ -1,0 +1,190 @@
+{
+  "item": [
+    {
+      "id": "6c18273d-db18-42be-98b0-63cedc75af9b",
+      "name": "Refunds",
+      "description": {
+        "content": "Refund previously completed EFT payments from the merchant float.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9f13ea10-649a-4eef-a13d-4d8313de560b",
+          "name": "Request a refund",
+          "request": {
+            "name": "Request a refund",
+            "description": {
+              "content": "Instructs Ozow to refund a previously completed EFT payment from the merchant Ozow float. Refund requests are authenticated with a bearer token obtained from the Ozow identity/token service (not the ApiKey header) and carry their own HashCheck. Ozow notifies the merchant NotifyUrl when the refund completes or fails.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "PostRefundRequest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"SiteCode\": \"<string>\",\n  \"TransactionId\": \"<string>\",\n  \"Amount\": \"<double>\",\n  \"RefundReference\": \"<string>\",\n  \"HashCheck\": \"<string>\",\n  \"NotifyUrl\": \"<uri>\",\n  \"IsTest\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b723ca75-21de-44f0-a6bf-49faee68a6d3",
+              "name": "Refund accepted for processing.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "PostRefundRequest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SiteCode\": \"<string>\",\n  \"TransactionId\": \"<string>\",\n  \"Amount\": \"<double>\",\n  \"RefundReference\": \"<string>\",\n  \"HashCheck\": \"<string>\",\n  \"NotifyUrl\": \"<uri>\",\n  \"IsTest\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"refundId\": \"string\",\n  \"status\": \"string\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c20522f8-6f10-494e-b982-c41a35c7bc18",
+              "name": "Invalid request or hash mismatch.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "PostRefundRequest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"SiteCode\": \"<string>\",\n  \"TransactionId\": \"<string>\",\n  \"Amount\": \"<double>\",\n  \"RefundReference\": \"<string>\",\n  \"HashCheck\": \"<string>\",\n  \"NotifyUrl\": \"<uri>\",\n  \"IsTest\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.ozow.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "de776e20-acc4-4ee0-95db-d74fced9b853",
+    "name": "Ozow Banks Refunds API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Ozow (formerly i-Pay) is a South African instant EFT / \"Pay by Bank\" payment gateway. Merchants create a payment request server-side, redirect the customer to the Ozow secure bank-selection flow, and receive a server-to-server notification plus browser redirect on completion. All write requests are authenticated with an ApiKey header and a SHA512 HashCheck computed by concatenating the request fields in documented order, appending the merchant PrivateKey, lower-casing, and hashing. Transactions are ZAR-only (CountryCode ZA, CurrencyCode ZAR).\n\nContact Support:\n Name: Ozow Support\n Email: support@ozow.com",
+      "type": "text/plain"
+    }
+  }
+}

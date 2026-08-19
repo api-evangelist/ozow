@@ -1,0 +1,264 @@
+{
+  "item": [
+    {
+      "id": "11d7ef34-6729-4567-8cf1-e3e324873e3b",
+      "name": "Transactions",
+      "description": {
+        "content": "Query transaction status by Ozow reference or merchant reference.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7a5aadfe-8938-4935-a331-d456ec249755",
+          "name": "Get transaction by Ozow transaction id",
+          "request": {
+            "name": "Get transaction by Ozow transaction id",
+            "description": {
+              "content": "Queries a transaction using the Ozow transaction id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "GetTransaction"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "siteCode",
+                  "value": "<string>",
+                  "description": "(Required) Merchant SiteCode."
+                },
+                {
+                  "disabled": false,
+                  "key": "transactionId",
+                  "value": "<string>",
+                  "description": "(Required) Ozow transaction id (GUID)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "ApiKey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5c6cfc76-6a2c-4861-bcbc-c7aa636b86ba",
+              "name": "Array of matching transaction objects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "GetTransaction"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "siteCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "transactionId",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "ApiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"transactionId\": \"string\",\n    \"merchantCode\": \"string\",\n    \"siteCode\": \"string\",\n    \"countryCode\": \"string\",\n    \"currencyCode\": \"string\",\n    \"amount\": 9746.23497957596,\n    \"transactionReference\": \"string\",\n    \"bankReference\": \"string\",\n    \"status\": \"string\",\n    \"statusMessage\": \"string\",\n    \"isTest\": true,\n    \"createdDate\": \"1962-11-23T09:53:33.038Z\",\n    \"paymentDate\": \"1988-10-08T11:40:41.601Z\",\n    \"hash\": \"string\"\n  },\n  {\n    \"transactionId\": \"string\",\n    \"merchantCode\": \"string\",\n    \"siteCode\": \"string\",\n    \"countryCode\": \"string\",\n    \"currencyCode\": \"string\",\n    \"amount\": 110.77712464036549,\n    \"transactionReference\": \"string\",\n    \"bankReference\": \"string\",\n    \"status\": \"string\",\n    \"statusMessage\": \"string\",\n    \"isTest\": true,\n    \"createdDate\": \"2023-01-28T04:48:01.628Z\",\n    \"paymentDate\": \"2021-06-02T08:58:46.844Z\",\n    \"hash\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98c8eca4-67c8-4b46-a4c2-0019063040cc",
+          "name": "Get transaction by merchant reference",
+          "request": {
+            "name": "Get transaction by merchant reference",
+            "description": {
+              "content": "Queries a transaction using the merchant TransactionReference.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "GetTransactionByReference"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "siteCode",
+                  "value": "<string>",
+                  "description": "(Required) Merchant SiteCode."
+                },
+                {
+                  "disabled": false,
+                  "key": "transactionReference",
+                  "value": "<string>",
+                  "description": "(Required) Merchant-supplied transaction reference."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "ApiKey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bdc29759-7034-4f14-9d53-ce740f6c4838",
+              "name": "Array of matching transaction objects.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "GetTransactionByReference"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "siteCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "transactionReference",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "ApiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"transactionId\": \"string\",\n    \"merchantCode\": \"string\",\n    \"siteCode\": \"string\",\n    \"countryCode\": \"string\",\n    \"currencyCode\": \"string\",\n    \"amount\": 9746.23497957596,\n    \"transactionReference\": \"string\",\n    \"bankReference\": \"string\",\n    \"status\": \"string\",\n    \"statusMessage\": \"string\",\n    \"isTest\": true,\n    \"createdDate\": \"1962-11-23T09:53:33.038Z\",\n    \"paymentDate\": \"1988-10-08T11:40:41.601Z\",\n    \"hash\": \"string\"\n  },\n  {\n    \"transactionId\": \"string\",\n    \"merchantCode\": \"string\",\n    \"siteCode\": \"string\",\n    \"countryCode\": \"string\",\n    \"currencyCode\": \"string\",\n    \"amount\": 110.77712464036549,\n    \"transactionReference\": \"string\",\n    \"bankReference\": \"string\",\n    \"status\": \"string\",\n    \"statusMessage\": \"string\",\n    \"isTest\": true,\n    \"createdDate\": \"2023-01-28T04:48:01.628Z\",\n    \"paymentDate\": \"2021-06-02T08:58:46.844Z\",\n    \"hash\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.ozow.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "822124f8-0fa4-42de-9823-3fb8e9edca97",
+    "name": "Ozow Banks Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Ozow (formerly i-Pay) is a South African instant EFT / \"Pay by Bank\" payment gateway. Merchants create a payment request server-side, redirect the customer to the Ozow secure bank-selection flow, and receive a server-to-server notification plus browser redirect on completion. All write requests are authenticated with an ApiKey header and a SHA512 HashCheck computed by concatenating the request fields in documented order, appending the merchant PrivateKey, lower-casing, and hashing. Transactions are ZAR-only (CountryCode ZA, CurrencyCode ZAR).\n\nContact Support:\n Name: Ozow Support\n Email: support@ozow.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,546 @@
+{
+  "item": [
+    {
+      "id": "d2189700-750c-41d3-9e7a-8789b99d7c10",
+      "name": "Payments",
+      "description": {
+        "content": "Create and initiate instant EFT payment requests.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cdb8a763-0513-4219-bcc1-6ae7e4fd5b81",
+          "name": "Create a payment request",
+          "request": {
+            "name": "Create a payment request",
+            "description": {
+              "content": "Creates an instant EFT payment request and returns a redirect URL to the Ozow secure bank-selection page. The HashCheck is computed over SiteCode, CountryCode, CurrencyCode, Amount, TransactionReference, BankReference, Cancel/Error/Success/Notify URLs and IsTest, with the merchant PrivateKey appended.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "postpaymentrequest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "ApiKey"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "SiteCode",
+                  "value": "<string>",
+                  "description": "(Required) Merchant site code from the Ozow dashboard."
+                },
+                {
+                  "disabled": false,
+                  "key": "CountryCode",
+                  "value": "<string>",
+                  "description": "(Required) Two-letter country code. Only ZA (South Africa) is supported."
+                },
+                {
+                  "disabled": false,
+                  "key": "CurrencyCode",
+                  "value": "<string>",
+                  "description": "(Required) Three-letter currency code. Only ZAR is supported."
+                },
+                {
+                  "disabled": false,
+                  "key": "Amount",
+                  "value": "<double>",
+                  "description": "(Required) Transaction amount in ZAR (e.g. 25.01)."
+                },
+                {
+                  "disabled": false,
+                  "key": "TransactionReference",
+                  "value": "<string>",
+                  "description": "(Required) Unique merchant reference used to match the transaction."
+                },
+                {
+                  "disabled": false,
+                  "key": "BankReference",
+                  "value": "<string>",
+                  "description": "(Required) Reference shown on the customer bank statement (max ~20 chars)."
+                },
+                {
+                  "disabled": false,
+                  "key": "HashCheck",
+                  "value": "<string>",
+                  "description": "(Required) SHA512 hex hash of the concatenated request fields (in documented order) with the merchant PrivateKey appended, lower-cased."
+                },
+                {
+                  "disabled": false,
+                  "key": "Optional1",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "Optional2",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "Optional3",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "Optional4",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "Optional5",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "Customer",
+                  "value": "<string>",
+                  "description": "Optional customer name/identifier."
+                },
+                {
+                  "disabled": false,
+                  "key": "CancelUrl",
+                  "value": "<uri>"
+                },
+                {
+                  "disabled": false,
+                  "key": "ErrorUrl",
+                  "value": "<uri>"
+                },
+                {
+                  "disabled": false,
+                  "key": "SuccessUrl",
+                  "value": "<uri>"
+                },
+                {
+                  "disabled": false,
+                  "key": "NotifyUrl",
+                  "value": "<uri>",
+                  "description": "Server-to-server notification (POST) callback URL."
+                },
+                {
+                  "disabled": false,
+                  "key": "IsTest",
+                  "value": "<boolean>",
+                  "description": "When true, routes the request through the Ozow test flow."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9bd74620-a0a6-4390-8267-823adef940f3",
+              "name": "Payment request created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "postpaymentrequest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "ApiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Merchant site code from the Ozow dashboard.",
+                        "type": "text/plain"
+                      },
+                      "key": "SiteCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Two-letter country code. Only ZA (South Africa) is supported.",
+                        "type": "text/plain"
+                      },
+                      "key": "CountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Three-letter currency code. Only ZAR is supported.",
+                        "type": "text/plain"
+                      },
+                      "key": "CurrencyCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Transaction amount in ZAR (e.g. 25.01).",
+                        "type": "text/plain"
+                      },
+                      "key": "Amount",
+                      "value": "<double>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Unique merchant reference used to match the transaction.",
+                        "type": "text/plain"
+                      },
+                      "key": "TransactionReference",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Reference shown on the customer bank statement (max ~20 chars).",
+                        "type": "text/plain"
+                      },
+                      "key": "BankReference",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) SHA512 hex hash of the concatenated request fields (in documented order) with the merchant PrivateKey appended, lower-cased.",
+                        "type": "text/plain"
+                      },
+                      "key": "HashCheck",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "Optional1",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "Optional2",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "Optional3",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "Optional4",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "Optional5",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional customer name/identifier.",
+                        "type": "text/plain"
+                      },
+                      "key": "Customer",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "CancelUrl",
+                      "value": "<uri>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "ErrorUrl",
+                      "value": "<uri>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "SuccessUrl",
+                      "value": "<uri>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Server-to-server notification (POST) callback URL.",
+                        "type": "text/plain"
+                      },
+                      "key": "NotifyUrl",
+                      "value": "<uri>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "When true, routes the request through the Ozow test flow.",
+                        "type": "text/plain"
+                      },
+                      "key": "IsTest",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"paymentRequestId\": \"string\",\n  \"url\": \"http://AbGnRHdeffhUN.jzUhiJF0+-tZLQMUK-Lsf0yy-ikVi6p3Az4XlLNVRJ\",\n  \"errorMessage\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee85ce94-89dc-4e6f-ba0e-79caf38a481e",
+              "name": "Invalid request or hash mismatch.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "postpaymentrequest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "ApiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Merchant site code from the Ozow dashboard.",
+                        "type": "text/plain"
+                      },
+                      "key": "SiteCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Two-letter country code. Only ZA (South Africa) is supported.",
+                        "type": "text/plain"
+                      },
+                      "key": "CountryCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Three-letter currency code. Only ZAR is supported.",
+                        "type": "text/plain"
+                      },
+                      "key": "CurrencyCode",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Transaction amount in ZAR (e.g. 25.01).",
+                        "type": "text/plain"
+                      },
+                      "key": "Amount",
+                      "value": "<double>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Unique merchant reference used to match the transaction.",
+                        "type": "text/plain"
+                      },
+                      "key": "TransactionReference",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Reference shown on the customer bank statement (max ~20 chars).",
+                        "type": "text/plain"
+                      },
+                      "key": "BankReference",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) SHA512 hex hash of the concatenated request fields (in documented order) with the merchant PrivateKey appended, lower-cased.",
+                        "type": "text/plain"
+                      },
+                      "key": "HashCheck",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "Optional1",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "Optional2",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "Optional3",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "Optional4",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "Optional5",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Optional customer name/identifier.",
+                        "type": "text/plain"
+                      },
+                      "key": "Customer",
+                      "value": "<string>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "CancelUrl",
+                      "value": "<uri>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "ErrorUrl",
+                      "value": "<uri>"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "SuccessUrl",
+                      "value": "<uri>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "Server-to-server notification (POST) callback URL.",
+                        "type": "text/plain"
+                      },
+                      "key": "NotifyUrl",
+                      "value": "<uri>"
+                    },
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "When true, routes the request through the Ozow test flow.",
+                        "type": "text/plain"
+                      },
+                      "key": "IsTest",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errorMessage\": \"string\",\n  \"errorCode\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.ozow.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "62372b27-f0e6-4cf8-bbed-9ad107f01814",
+    "name": "Ozow Banks Payments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Ozow (formerly i-Pay) is a South African instant EFT / \"Pay by Bank\" payment gateway. Merchants create a payment request server-side, redirect the customer to the Ozow secure bank-selection flow, and receive a server-to-server notification plus browser redirect on completion. All write requests are authenticated with an ApiKey header and a SHA512 HashCheck computed by concatenating the request fields in documented order, appending the merchant PrivateKey, lower-casing, and hashing. Transactions are ZAR-only (CountryCode ZA, CurrencyCode ZAR).\n\nContact Support:\n Name: Ozow Support\n Email: support@ozow.com",
+      "type": "text/plain"
+    }
+  }
+}

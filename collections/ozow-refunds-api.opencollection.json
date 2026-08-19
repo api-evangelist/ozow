@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ozow Banks Refunds API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Refunds",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Request a refund",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ozow.com/PostRefundRequest",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Instructs Ozow to refund a previously completed EFT payment from the merchant Ozow float. Refund requests are authenticated with a bearer token obtained from the Ozow identity/token service (not the ApiKey header) and carry their own HashCheck. Ozow notifies the merchant NotifyUrl when the refund completes or fails."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ozow Banks Transactions API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get transaction by Ozow transaction id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ozow.com/GetTransaction",
+            "params": [
+              {
+                "name": "siteCode",
+                "value": "",
+                "type": "query",
+                "description": "Merchant SiteCode."
+              },
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "query",
+                "description": "Ozow transaction id (GUID)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "ApiKey",
+              "value": "{{ApiKey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Queries a transaction using the Ozow transaction id."
+        },
+        {
+          "info": {
+            "name": "Get transaction by merchant reference",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ozow.com/GetTransactionByReference",
+            "params": [
+              {
+                "name": "siteCode",
+                "value": "",
+                "type": "query",
+                "description": "Merchant SiteCode."
+              },
+              {
+                "name": "transactionReference",
+                "value": "",
+                "type": "query",
+                "description": "Merchant-supplied transaction reference."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "ApiKey",
+              "value": "{{ApiKey}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Queries a transaction using the merchant TransactionReference."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
