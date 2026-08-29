@@ -7,6 +7,18 @@ description: Ozow (formerly i-Pay) is a South African fintech providing an insta
   redirect the customer to the Ozow secure bank-selection flow, and reconcile via a
   server-to-server notification. The REST API is ZAR-only (CountryCode ZA), authenticated
   with an ApiKey header and a SHA512 HashCheck built from a merchant PrivateKey.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
