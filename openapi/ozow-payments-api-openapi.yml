@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Ozow Banks Payments API
-  description: Ozow (formerly i-Pay) is a South African instant EFT / "Pay by Bank" payment gateway. Merchants create a payment request server-side, redirect the customer to the Ozow secure bank-selection flow, and receive a server-to-server notification plus browser redirect on completion. All write requests are authenticated with an ApiKey header and a SHA512 HashCheck computed by concatenating the request fields in documented order, appending the merchant PrivateKey, lower-casing, and hashing. Transactions are ZAR-only (CountryCode ZA, CurrencyCode ZAR).
+  title: Ozow Payments API
+  description: Ozow (formerly i-Pay) is a South African instant EFT / "Pay by Bank" payment gateway.
   termsOfService: https://ozow.com/terms-and-conditions
   contact:
     name: Ozow Support
@@ -50,6 +50,27 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+        errorCode:
+          type: string
+    PaymentResponse:
+      type: object
+      properties:
+        paymentRequestId:
+          type: string
+          description: Ozow-generated payment request id (GUID).
+        url:
+          type: string
+          format: uri
+          description: Redirect URL to the Ozow secure bank-selection page.
+        errorMessage:
+          type:
+          - string
+          - 'null'
     PaymentRequest:
       type: object
       required:
@@ -116,26 +137,6 @@ components:
         HashCheck:
           type: string
           description: SHA512 hex hash of the concatenated request fields (in documented order) with the merchant PrivateKey appended, lower-cased.
-    PaymentResponse:
-      type: object
-      properties:
-        paymentRequestId:
-          type: string
-          description: Ozow-generated payment request id (GUID).
-        url:
-          type: string
-          format: uri
-          description: Redirect URL to the Ozow secure bank-selection page.
-        errorMessage:
-          type: string
-          nullable: true
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          type: string
-        errorCode:
-          type: string
   securitySchemes:
     ApiKey:
       type: apiKey

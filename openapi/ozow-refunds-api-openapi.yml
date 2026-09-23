@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Ozow Banks Refunds API
-  description: Ozow (formerly i-Pay) is a South African instant EFT / "Pay by Bank" payment gateway. Merchants create a payment request server-side, redirect the customer to the Ozow secure bank-selection flow, and receive a server-to-server notification plus browser redirect on completion. All write requests are authenticated with an ApiKey header and a SHA512 HashCheck computed by concatenating the request fields in documented order, appending the merchant PrivateKey, lower-casing, and hashing. Transactions are ZAR-only (CountryCode ZA, CurrencyCode ZAR).
+  title: Ozow Refunds API
+  description: Ozow (formerly i-Pay) is a South African instant EFT / "Pay by Bank" payment gateway.
   termsOfService: https://ozow.com/terms-and-conditions
   contact:
     name: Ozow Support
@@ -47,6 +47,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+        errorCode:
+          type: string
     RefundRequest:
       type: object
       required:
@@ -81,15 +88,9 @@ components:
         status:
           type: string
         errorMessage:
-          type: string
-          nullable: true
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          type: string
-        errorCode:
-          type: string
+          type:
+          - string
+          - 'null'
   securitySchemes:
     ApiKey:
       type: apiKey
