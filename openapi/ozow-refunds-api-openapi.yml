@@ -54,6 +54,17 @@ components:
           type: string
         errorCode:
           type: string
+    RefundResponse:
+      type: object
+      properties:
+        refundId:
+          type: string
+        status:
+          type: string
+        errorMessage:
+          type:
+          - string
+          - 'null'
     RefundRequest:
       type: object
       required:
@@ -80,17 +91,6 @@ components:
           type: boolean
         HashCheck:
           type: string
-    RefundResponse:
-      type: object
-      properties:
-        refundId:
-          type: string
-        status:
-          type: string
-        errorMessage:
-          type:
-          - string
-          - 'null'
   securitySchemes:
     ApiKey:
       type: apiKey
