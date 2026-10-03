@@ -57,6 +57,20 @@ components:
           type: string
         errorCode:
           type: string
+    PaymentResponse:
+      type: object
+      properties:
+        paymentRequestId:
+          type: string
+          description: Ozow-generated payment request id (GUID).
+        url:
+          type: string
+          format: uri
+          description: Redirect URL to the Ozow secure bank-selection page.
+        errorMessage:
+          type:
+          - string
+          - 'null'
     PaymentRequest:
       type: object
       required:
@@ -123,20 +137,6 @@ components:
         HashCheck:
           type: string
           description: SHA512 hex hash of the concatenated request fields (in documented order) with the merchant PrivateKey appended, lower-cased.
-    PaymentResponse:
-      type: object
-      properties:
-        paymentRequestId:
-          type: string
-          description: Ozow-generated payment request id (GUID).
-        url:
-          type: string
-          format: uri
-          description: Redirect URL to the Ozow secure bank-selection page.
-        errorMessage:
-          type:
-          - string
-          - 'null'
   securitySchemes:
     ApiKey:
       type: apiKey
