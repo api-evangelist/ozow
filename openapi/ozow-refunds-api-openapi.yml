@@ -47,13 +47,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        errorMessage:
-          type: string
-        errorCode:
-          type: string
     RefundResponse:
       type: object
       properties:
@@ -65,6 +58,13 @@ components:
           type:
           - string
           - 'null'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+        errorCode:
+          type: string
     RefundRequest:
       type: object
       required:
