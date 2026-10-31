@@ -1,4 +1,4 @@
-# Ozow (ozow)
+# Ozow
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,114 +66,152 @@
 
 Ozow (formerly i-Pay) is a South African fintech providing an instant EFT / "Pay by Bank" payment gateway. Merchants create a server-side payment request, redirect the customer to the Ozow secure bank-selection flow, and reconcile via a server-to-server notification. The REST API is ZAR-only (CountryCode ZA), authenticated with an ApiKey header and a SHA512 HashCheck built from a merchant PrivateKey.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/ozow/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/ozow/refs/heads/main/apis.yml)
+**Areas:** Payments · Instant EFT · Pay by Bank · Fintech · South Africa
 
-## Tags
+## Ozow on APIs.io
 
-- Payments
-- Instant EFT
-- Pay by Bank
-- Fintech
-- South Africa
+Everything profiled for Ozow is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/ozow/](https://apis.io/providers/ozow/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (4)
 
-- **Created:** 2026-07-17
-- **Modified:** 2026-07-17
+- [Ozow Banks API](https://apis.io/apis/ozow/ozow-banks-api/) — Retrieve the list of supported banks for the payment flow.
+- [Ozow Payments API](https://apis.io/apis/ozow/ozow-payments-api/) — Create and initiate instant EFT payment requests.
+- [Ozow Refunds API](https://apis.io/apis/ozow/ozow-refunds-api/) — Refund previously completed EFT payments from the merchant float.
+- [Ozow Transactions API](https://apis.io/apis/ozow/ozow-transactions-api/) — Query transaction status by Ozow reference or merchant reference.
 
-## APIs
+### Published properties
 
-### Ozow Payments API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Creates an instant EFT payment request (POST /postpaymentrequest) and returns a redirect URL to the Ozow secure bank-selection page. ZAR-only, ApiKey header plus SHA512 HashCheck over the field set with the merchant PrivateKey.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://hub.ozow.com/docs](https://hub.ozow.com/docs)
-- **Base URL:** `https://api.ozow.com`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Ozow Webhooks](https://apis.io/asyncapis/ozow/ozow-webhooks/)
 
-- Payments
-- Instant EFT
-- Pay by Bank
+#### MCP servers (1)
 
-#### Properties
+Model Context Protocol servers that expose the API to agents.
 
-- [Documentation](https://hub.ozow.com/docs)
-- [API Reference](https://ozow.com/integrations)
-- [OpenAPI](openapi/ozow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/ozow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [ozow](https://apis.io/servers/ozow/ozow/)
 
-### Ozow Transactions API
+#### Agentic access (1)
 
-Query transaction status by Ozow transaction id (GET /GetTransaction) or by merchant reference (GET /GetTransactionByReference). Returns an array of transaction objects for reconciliation.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://hub.ozow.com/docs](https://hub.ozow.com/docs)
-- **Base URL:** `https://api.ozow.com`
+- [Ozow Agentic Access](https://apis.io/agentic-access/ozow/ozow-agentic-access/)
 
-#### Tags
+#### Collections (8)
 
-- Transactions
-- Reconciliation
-- Status
+Postman and Open Collection request collections.
 
-#### Properties
+- [Ozow Banks API](https://apis.io/collections/ozow/open-ozow-banks-api/)
+- [Ozow Banks Payments API](https://apis.io/collections/ozow/open-ozow-payments-api/)
+- [Ozow Banks Refunds API](https://apis.io/collections/ozow/open-ozow-refunds-api/)
+- [Ozow Banks Transactions API](https://apis.io/collections/ozow/open-ozow-transactions-api/)
+- [Ozow Banks API](https://apis.io/collections/ozow/postman-ozow-banks-api/)
+- [Ozow Banks Payments API](https://apis.io/collections/ozow/postman-ozow-payments-api/)
+- [Ozow Banks Refunds API](https://apis.io/collections/ozow/postman-ozow-refunds-api/)
+- [Ozow Banks Transactions API](https://apis.io/collections/ozow/postman-ozow-transactions-api/)
 
-- [Documentation](https://hub.ozow.com/docs)
-- [OpenAPI](openapi/ozow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/ozow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+#### Overlays (1)
 
-### Ozow Bank List API
+OpenAPI overlays, including conversational phrasing for each operation.
 
-Returns the list of supported banks (GET /GetBanks) for merchants that render their own bank-selection UI ahead of redirecting to the Ozow flow.
+- [Ozow Openapi Overlay](https://apis.io/overlays/ozow/ozow-openapi-overlay/)
 
-- **Human URL:** [https://hub.ozow.com/docs](https://hub.ozow.com/docs)
-- **Base URL:** `https://api.ozow.com`
+#### Security (4)
 
-#### Tags
+Authentication, trust centre, and vulnerability disclosure.
 
-- Banks
-- Bank Selection
+- [Ozow Authentication](https://apis.io/security/ozow/ozow-authentication/)
+- [Ozow Domain Security](https://apis.io/security/ozow/ozow-domain-security/)
+- [Ozow Trust Center](https://apis.io/security/ozow/ozow-trust-center/)
+- [Ozow Vulnerability Disclosure](https://apis.io/security/ozow/ozow-vulnerability-disclosure/)
 
-#### Properties
+#### Plans and pricing (1)
 
-- [Documentation](https://hub.ozow.com/docs)
-- [OpenAPI](openapi/ozow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/ozow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+Published plans, tiers and prices.
 
-### Ozow Refunds API
+- [Ozow Plans Pricing](https://apis.io/plans/ozow/ozow-plans-pricing/)
 
-Refunds previously completed EFT payments from the merchant Ozow float (POST /PostRefundRequest). Uses a bearer token from the Ozow token service plus a HashCheck; Ozow notifies the merchant NotifyUrl on completion or failure.
+#### Rate limits (1)
 
-- **Human URL:** [https://hub.ozow.com/docs](https://hub.ozow.com/docs)
-- **Base URL:** `https://api.ozow.com`
+Published request limits.
 
-#### Tags
+- [Ozow Rate Limits](https://apis.io/rate-limits/ozow/ozow-rate-limits/)
 
-- Refunds
-- Payouts
+#### FinOps (1)
 
-#### Properties
+What the API costs to run, by operation.
 
-- [Documentation](https://hub.ozow.com/docs)
-- [OpenAPI](openapi/ozow-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/ozow.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Ozow Finops](https://apis.io/finops/ozow/ozow-finops/)
 
-## Common Properties
+## Where to find this API
 
-- [Agentic Access](agentic-access/ozow-agentic-access.yml)
-- [Trust Center](security/ozow-trust-center.yml)
-- [Vulnerability Disclosure](security/ozow-vulnerability-disclosure.yml)
-- [Domain Security](security/ozow-domain-security.yml)
-- [Authentication](authentication/ozow-authentication.yml)
-- [LinkedIn](https://za.linkedin.com/company/ozowsecurepayments)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://ozow.com/)
 - [Documentation](https://hub.ozow.com/docs)
-- [Plans](plans/ozow-plans-pricing.yml)
-- [Rate Limits](rate-limits/ozow-rate-limits.yml)
-- [Fin Ops](finops/ozow-finops.yml)
+- [Getting started](https://hub.ozow.com/docs)
+- [Pricing](https://ozow.com/pricing)
+- [Sign up](https://dash.ozow.com)
+- [Support](https://ozow.com/contact)
 - [Blog](https://ozow.com/blog)
+- [Terms of service](https://ozow.com/terms-and-conditions)
+- [Privacy policy](https://ozow.com/privacy-policy)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 46.7** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 56.4 |
+| Contract governance | 18.2 |
+| Operational transparency | 23.7 |
+| Developer ergonomics | 36.3 |
+| Access clarity | 52.6 |
+
+**Agent readiness 26.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 39.3** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/ozow/](https://apis.io/providers/ozow/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Ozow: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/ozow/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
